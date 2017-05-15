@@ -35,22 +35,22 @@ vector<string> Reader::Read( string fileName )
     return textLines ;
 }
 
-vector<Pair> Reader::Parse_All_Lines( vector<string> lines )
+vector<Point> Reader::Parse_All_Lines( vector<string> lines )
 {
-    vector<Pair> pairs ;
+    vector<Point> points ;
 
     for( vector<string>::iterator i = lines.begin() ; i != lines.end() ; i++ )
     {
         //cout << *i << endl ;
-        pairs.push_back( Parse_Line(*i) );
+        points.push_back( Parse_Line(*i) );
     }
 
     //cout << "\n\n" ;
 
-    return pairs ;
+    return points ;
 }
 
-Pair Reader::Parse_Line( string textLine )
+Point Reader::Parse_Line( string textLine )
 {
     int len = textLine.length() ;
     int spaceIndex ;
@@ -64,26 +64,26 @@ Pair Reader::Parse_Line( string textLine )
         }
     }
 
-    string sinput, soutput ;
+    string xx, yy ;
 
-    sinput = textLine.substr(0,spaceIndex) ;
-    soutput = textLine.substr(spaceIndex+1,len-spaceIndex-1) ;
+    xx = textLine.substr(0,spaceIndex) ;
+    yy = textLine.substr(spaceIndex+1,len-spaceIndex-1) ;
     //cout << sinput << "_" << soutput << endl ;
 
     //float input, output ; // convert strings to floats
 
-    float input = atof(sinput.c_str());
-    float output = atof(soutput.c_str());
+    int x = (int) atof(xx.c_str());
+    int y = (int) atof(yy.c_str());
 
-    return Pair(input,output) ;
+    return Point(x,y) ;
 }
 
 
-void Reader::Create_Pairs( string FileNameA, vector<Pair>* pPairsA, string FileNameB, vector<Pair>* pPairsB )
+void Reader::Create_Pairs( string FileNameA, vector<Point>* pPointsA, string FileNameB, vector<Point>* pPointsB )
 {
         vector<string> lines = Read(FileNameA) ;
-        *pPairsA = Parse_All_Lines(lines) ;
+        *pPointsA = Parse_All_Lines(lines) ;
 
         lines = Read(FileNameB) ;
-        *pPairsB = Parse_All_Lines(lines) ;
+        *pPointsB = Parse_All_Lines(lines) ;
 }
