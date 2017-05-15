@@ -11,6 +11,13 @@ int main()
 
     reader.Create_Pairs("test_data.txt",&points) ;
 
+    cin.get();
+
+    return 0 ;
+}
+
+void show_points( vector<Point> points)
+{
     for( int i = 0 ; i<points.size() ; i++ )
     {
         int x = points[i].return_x() ;
@@ -18,6 +25,4 @@ int main()
 
         cout << "(" << x << "," << y << ")\n" ;
     }
-
-    return 0 ;
 }

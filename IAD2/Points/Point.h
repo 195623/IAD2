@@ -1,5 +1,7 @@
 #include <iostream>
 
+class Center ;
+
 class Point
 {
 public:
@@ -8,9 +10,16 @@ public:
     int return_x() ;
     int return_y() ;
 
+    void set_center(Center* center) ;
+    Center* return_currentCenter();
+
 protected:
     int x ;
     int y ;
+
+private:
+    Center* currentCenter ;
+    Center* previousCenter ;
 
 };
 
