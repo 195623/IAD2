@@ -14,10 +14,8 @@ public:
 
     std::vector<Point> Parse_All_Lines( std::vector<std::string> lines ) ;
 
-    void Create_Pairs( std::string FileNameA,
-                       std::vector<Point>* pPointsA,
-                       std::string FileNameB,
-                       std::vector<Point>* pPointsB );
+    void Create_Pairs( std::string fileName,
+                       std::vector<Point>* p_points );
 
     private:
 

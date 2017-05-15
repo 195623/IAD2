@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../headers.h"
+#include "Point.h"
 
 class Center : public Point
 {

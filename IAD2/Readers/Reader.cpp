@@ -1,6 +1,7 @@
 #include <string>
 #include <cstdlib>
 #include "../headers.h"
+
 using namespace std ;
 
 Reader::Reader()
@@ -57,7 +58,7 @@ Point Reader::Parse_Line( string textLine )
 
     for( int i = 0 ; i<len ; i++ )
     {
-        if ( textLine[i] == ' ' || textLine[i] == '\t' )
+        if ( textLine[i] == ',' )
         {
             spaceIndex = i ;
             break ;
@@ -79,11 +80,11 @@ Point Reader::Parse_Line( string textLine )
 }
 
 
-void Reader::Create_Pairs( string FileNameA, vector<Point>* pPointsA, string FileNameB, vector<Point>* pPointsB )
+void Reader::Create_Pairs( string fileName, vector<Point>* p_points )
 {
-        vector<string> lines = Read(FileNameA) ;
-        *pPointsA = Parse_All_Lines(lines) ;
+        vector<string> lines = Read(fileName) ;
+        *p_points = Parse_All_Lines(lines) ;
 
-        lines = Read(FileNameB) ;
-        *pPointsB = Parse_All_Lines(lines) ;
+        //lines = Read(FileNameB) ;
+        //*pPointsB = Parse_All_Lines(lines) ;
 }
