@@ -1,5 +1,6 @@
 #include <iostream>
 
+
 class Point
 {
 public:
@@ -8,7 +9,7 @@ public:
     int return_x() ;
     int return_y() ;
 
-private:
+protected:
     int x ;
     int y ;
 

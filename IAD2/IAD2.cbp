@@ -31,6 +31,16 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Points/Center.cpp" />
+		<Unit filename="Points/Center.h" />
+		<Unit filename="Points/Point.cpp" />
+		<Unit filename="Points/Point.h" />
+		<Unit filename="Readers/Measure.cpp" />
+		<Unit filename="Readers/Measure.h" />
+		<Unit filename="Readers/Reader.cpp" />
+		<Unit filename="Readers/Reader.h" />
+		<Unit filename="headers.h" />
+		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
