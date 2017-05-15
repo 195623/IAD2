@@ -2,6 +2,11 @@
 
 using namespace std ;
 
+Measure::Measure()
+{
+
+}
+
 double Measure::single_distance( Center center, Point point )
 {
     int px = point.return_x(),
