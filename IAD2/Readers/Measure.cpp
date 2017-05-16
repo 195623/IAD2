@@ -7,49 +7,57 @@ Measure::Measure()
 
 }
 
-double Measure::single_distance( Center center, Point point )
+double Measure::single_sqDistance( Center center, Point point )
 {
     double px = point.return_x(),
         py = point.return_y(),
         cx = center.return_x(),
         cy = center.return_y() ;
 
-    double distance = sqrt((px-cx)*(px-cx)+(py-cy)*(py-cy)) ;
+    double distance = ((px-cx)*(px-cx)+(py-cy)*(py-cy)) ;
 
     return distance ;
 
 }
 
-double Measure::total_distance( Center center, vector<Point> points )
+double Measure::total_sqDistance( Center center, vector<Point> points )
 {
     double totalDistance = 0 ;
 
     for( vector<Point>::iterator it = points.begin() ;  it != points.end() ; it++ )
     {
-        totalDistance += single_distance(center,*it) ;
+        totalDistance += single_sqDistance(center,*it) ;
     }
 
-    return totalDistance ;
+    return totalDistance/10000 ;
 }
 
-void Measure::set_closest_center( Point* p_point, vector<Center*> centers )
+void Measure::set_closest_center( Point* p_point, vector<Center> centers )
 {
-    double distance ;
+    double sqDistance ;
 
-    if(centers.size()>0) distance = single_distance(*centers[0],*p_point) ;
+    if(centers.size()>0)
+    {
+        sqDistance = single_sqDistance(centers[0],*p_point) ;
+        p_point->set_currentCenterID(centers[0].return_ID()) ;
+    }
     else
     {
-        cout << "[ set_closest_center(): vector<Center*> is empty ]\n" ;
+        cout << "[ set_closest_center(): vector<Center> is empty ]\n" ;
         return ;
     }
 
-    for( vector<Center*>::iterator it = centers.begin() ;  it != centers.end() ; it++ )
+    for( vector<Center>::iterator it = centers.begin() ;  it != centers.end() ; it++ )
     {
-        double newDistance = single_distance(**it,*p_point) ;
-        if( newDistance < distance )
+        double newSqDistance = single_sqDistance(*it,*p_point) ;
+        int newID = (*it).return_ID();
+
+        if( newSqDistance < sqDistance )
         {
-            distance = newDistance ;
-            p_point->set_center(*it) ;
+            sqDistance = newSqDistance ;
+
+            p_point->set_currentCenterID(newID) ;
+            //cout << "New ID = " << newID << '\n' ;
         }
     }
 }

@@ -1,12 +1,21 @@
 #include "../headers.h"
 using namespace std ;
 
-Center::Center( double x, double y ):Point(x,y)
+string dts( double db ) ;
+
+Center::Center( double x, double y, int ID ):Point(x,y)
 {
+    this->ID = ID ;
+}
+
+int Center::return_ID()
+{
+    return this->ID ;
 }
 
 void Center::reposition_center( vector<Point> allPoints )
 {
+
     vector<Point> belongingPoints = return_belonging_points(allPoints) ;
 
     double xs = 0, ys = 0 ;
@@ -19,11 +28,19 @@ void Center::reposition_center( vector<Point> allPoints )
         ys += (*it).return_y();
     }
 
-    this->x = xs/n ;
-    this->y = ys/n ;
+    //cout << "\n[" << dts(xs) << "," << dts(ys) << "]\n" ;
+    //cout << "\n[" << dts(n) << "]\n" ;
 
-    cout << "Center::reposition_center() --> " ;
-    display_point();
+    //cout << "/" << xs << "," << ys << "\\\n" ;
+
+    if(n>0)
+    {
+        this->x = xs/n ;
+        this->y = ys/n ;
+        cout << display_point();
+    }
+
+
 }
 
 
@@ -33,8 +50,11 @@ vector<Point> Center::return_belonging_points( vector<Point> allPoints )
 
     for( vector<Point>::iterator it = allPoints.begin() ; it != allPoints.end() ; it++ )
     {
-        if( (*it).return_currentCenter() == this ) belongingPoints.push_back(*it) ;
+        if( (*it).return_currentCenterID() == this->ID ) belongingPoints.push_back(*it) ;
+        //cout << "*" ;
     }
+
+    cout << "\nC[" << this->ID << "]: " << belongingPoints.size() << " -- " ;
 
     return belongingPoints ;
 }

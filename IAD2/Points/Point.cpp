@@ -1,5 +1,12 @@
 #include "../headers.h"
+
 using namespace std ;
+
+
+
+string dts( double db ) ;
+
+// ----------------
 
 Point::Point( double x, double y )
 {
@@ -7,21 +14,26 @@ Point::Point( double x, double y )
     this->y = y ;
 }
 
-void Point::display_point()
+string Point::display_point()
 {
-    cout << "(" << x << "," << y << ")\n" ;
+    string strX = dts(x) ;
+    string strY = dts(y) ;
+
+    return "(" + strX + "," + strY + ")  " ;
 }
 
-void Point::set_center(Center* center)
+void Point::set_currentCenterID( int newCenterID )
 {
-    this->previousCenter = this->currentCenter ;
+    this->previousCenterID = this->currentCenterID ;
 
-    this->currentCenter = center ;
+    this->currentCenterID = newCenterID ;
+
+    //if( this->previousCenterID != this->currentCenterID ) cout << "*" ;
 }
 
-Center* Point::return_currentCenter()
+int Point::return_currentCenterID()
 {
-    return this->currentCenter ;
+    return this->currentCenterID ;
 }
 
 double Point::return_x()

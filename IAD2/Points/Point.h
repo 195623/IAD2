@@ -1,5 +1,6 @@
 #include <iostream>
 
+
 class Center ;
 
 class Point
@@ -10,18 +11,18 @@ public:
     double return_x() ;
     double return_y() ;
 
-    void set_center(Center* center) ;
-    Center* return_currentCenter();
+    void set_currentCenterID( int newCenterID ) ;
+    int return_currentCenterID();
 
-    void display_point();
+    std::string display_point();
 
 protected:
     double x ;
     double y ;
 
 private:
-    Center* currentCenter ;
-    Center* previousCenter ;
+    int currentCenterID ;
+    int previousCenterID ;
 
 };
 
