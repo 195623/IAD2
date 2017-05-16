@@ -73,8 +73,8 @@ Point Reader::Parse_Line( string textLine )
 
     //float input, output ; // convert strings to floats
 
-    int x = (int) atof(xx.c_str());
-    int y = (int) atof(yy.c_str());
+    double x = atof(xx.c_str());
+    double y = atof(yy.c_str());
 
     return Point(x,y) ;
 }

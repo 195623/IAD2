@@ -1,7 +1,7 @@
 #include "../headers.h"
 using namespace std ;
 
-Center::Center( int x, int y ):Point(x,y)
+Center::Center( double x, double y ):Point(x,y)
 {
 }
 
@@ -21,6 +21,9 @@ void Center::reposition_center( vector<Point> allPoints )
 
     this->x = xs/n ;
     this->y = ys/n ;
+
+    cout << "Center::reposition_center() --> " ;
+    display_point();
 }
 
 

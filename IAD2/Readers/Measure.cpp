@@ -9,7 +9,7 @@ Measure::Measure()
 
 double Measure::single_distance( Center center, Point point )
 {
-    int px = point.return_x(),
+    double px = point.return_x(),
         py = point.return_y(),
         cx = center.return_x(),
         cy = center.return_y() ;

@@ -5,17 +5,19 @@ class Center ;
 class Point
 {
 public:
-    Point(int x, int y) ;
+    Point(double x, double y) ;
 
-    int return_x() ;
-    int return_y() ;
+    double return_x() ;
+    double return_y() ;
 
     void set_center(Center* center) ;
     Center* return_currentCenter();
 
+    void display_point();
+
 protected:
-    int x ;
-    int y ;
+    double x ;
+    double y ;
 
 private:
     Center* currentCenter ;
