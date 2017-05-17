@@ -13,25 +13,32 @@ int main()
     vector<Point> points ;
 
     vector<Center> centers ;
-    centers.push_back( Center(1,11,1)) ;
-    centers.push_back( Center(-5,17,2)) ;
-    centers.push_back( Center(1,-10,3)) ;
+    centers.push_back( Center(20,20,1)) ;
+    centers.push_back( Center(20,0 ,2)) ;
+    centers.push_back( Center(0,20 ,3)) ;
 
     reader.Create_Pairs("test_data.txt",&points) ;
 
 
 
-    for( int j = 0 ; j<20 ; j++ )
+    for( int j = 0 ; j<50 ; j++ )
     {
         for( int i = 0 ; i<points.size() ; i++ )
         {
             measure.set_closest_center(&points[i],centers);
         }
 
+        double allCentersDistance = 0 ;
+
         for( int i = 0 ; i<centers.size() ; i++ )
         {
             centers[i].reposition_center(points) ;
+            //allCentersDistance += measure.total_sqDistance(centers[i],points) ;
         }
+
+        //cout << "Total distance = " << allCentersDistance << '\n' ;
+        vector<Point> cpoints = centers[1].return_belonging_points(points) ;
+        cout << "\n - dist[1] = " << measure.total_sqDistance(centers[1],cpoints);
 
         cout << "\n\n" ;
     }
