@@ -1,11 +1,52 @@
 #include <string>
 #include <cstdlib>
+#include <iostream>
+#include <fstream>
+#include <iomanip>
 #include "../headers.h"
 
 using namespace std ;
 
 Reader::Reader()
 {
+
+}
+
+void Reader::write_thing_into_csv( string fileName, vector<string> thing )
+{
+      char* fileNameC = (char*) &fileName[0] ;
+      ofstream myfile;
+      myfile.open(fileNameC);
+      if( myfile.is_open() )
+      {
+          for( int i = 0 ; i<thing.size() ; i++ )
+          {
+              myfile << thing[i] ;
+          }
+
+          myfile.close();
+      }
+      else
+      cout << "Failed to open the \"" << fileName << "\" file." ;
+
+}
+
+void Reader::write_to_csv( string fileName )
+{
+      char* fileNameC = (char*) &fileName[0] ;
+      ofstream myfile;
+      myfile.open(fileNameC);
+      if( myfile.is_open() )
+      {
+          myfile << "This is the first cell in the first column.\n";
+          myfile << "a;b;c\n";
+          myfile << "c;s;v\n";
+          myfile << "1;2;3.456\n";
+          myfile << "semicolon";
+          myfile.close();
+      }
+      else
+      cout << "Failed to open the \"" << fileName << "\" file." ;
 
 }
 

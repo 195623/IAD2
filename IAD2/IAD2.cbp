@@ -41,6 +41,7 @@
 		<Unit filename="Readers/Reader.h" />
 		<Unit filename="headers.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="todo.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
