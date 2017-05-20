@@ -13,6 +13,7 @@ public:
 
     void set_currentCenterID( int newCenterID ) ;
     int return_currentCenterID();
+    bool did_not_change() ;
 
     std::string display_point();
 

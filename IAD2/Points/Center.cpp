@@ -37,7 +37,7 @@ void Center::reposition_center( vector<Point> allPoints )
     {
         this->x = xs/n ;
         this->y = ys/n ;
-        cout << display_point();
+        //cout << display_point();
     }
 
 
@@ -54,7 +54,7 @@ vector<Point> Center::return_belonging_points( vector<Point> allPoints )
         //cout << "*" ;
     }
 
-    cout << "\nC[" << this->ID << "]: " << belongingPoints.size() << " -- " ;
+    //cout << "\nC[" << this->ID << "]: " << belongingPoints.size() << " -- " ;
 
     return belongingPoints ;
 }

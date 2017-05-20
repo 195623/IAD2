@@ -24,6 +24,8 @@ double Measure::total_sqDistance( Center center, vector<Point> points )
 {
     double totalDistance = 0 ;
 
+    if(points.size() == 0 ) return -1 ;
+
     for( vector<Point>::iterator it = points.begin() ;  it != points.end() ; it++ )
     {
         totalDistance += single_sqDistance(center,*it) ;

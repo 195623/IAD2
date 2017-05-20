@@ -14,6 +14,18 @@ Point::Point( double x, double y )
     this->y = y ;
 }
 
+bool Point::did_not_change()
+{
+    if( currentCenterID == previousCenterID )
+    {
+        //cout << '*' ;
+        return true ;
+    }
+
+    //cout << "^" ;
+    return false ;
+}
+
 string Point::display_point()
 {
     string strX = dts(x) ;
