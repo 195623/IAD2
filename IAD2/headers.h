@@ -6,3 +6,4 @@
 #include "Readers/Measure.h"
 #include "Readers/Reader.h"
 
+#include "other/Painter.h"

@@ -7,9 +7,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
-#define _WIN32_WINNT 0x0500
-#include <windows.h>
-#include <wincon.h>
+
 
 
 
@@ -41,7 +39,9 @@ int main()
     reader.Create_Pairs("test_data.txt",&points) ;
     vector<Center> centers = randomize_centers(10);
 
-    draw_points(points,centers,100);
+    Painter painter ;
+
+    painter.draw_points(points,centers,100);
 
     cin.get();
     return 0 ;
@@ -59,46 +59,6 @@ int main()
     cin.get();
 
     return 0 ;
-}
-
-// ----------------------------------------------------------------
-
-void draw()
-{
-    //SetPixel(NULL, 50, 50, RGB(255, 255, 255));
-    HWND myconsole = GetConsoleWindow();
-    HDC mydc = GetDC(myconsole);
-    RECT rect;
-    GetClientRect(myconsole, &rect);
-    for(int i = 0; i < rect.bottom - rect.top; ++i)
-        SetPixel(mydc, (rect.right - rect.left) / 2, i, RGB(255, 0, 0));
-    for(int i = 0; i < rect.right - rect.left; ++i)
-        SetPixel(mydc, i, (rect.bottom - rect.top) / 2, RGB(255, 0, 0));
-}
-
-void draw_points( vector<Point> points, vector<Center> centers, int margin )
-{
-    //SetPixel(NULL, 50, 50, RGB(255, 255, 255));
-    HWND myconsole = GetConsoleWindow();
-    HDC mydc = GetDC(myconsole);
-    RECT rect;
-    GetClientRect(myconsole, &rect);
-
-    for(int i = 0; i < points.size(); i++)
-    {
-        int x = 10*points[i].return_x() +150+margin;
-        int y = 10*points[i].return_y() +150+margin;
-        SetPixel(mydc, x,y, RGB(255, 255, 255));
-    }
-
-
-    for(int i = 0; i < centers.size(); i++)
-    {
-        int x = 10*centers[i].return_x() +150+margin;
-        int y = 10*centers[i].return_y() +150+margin;
-        SetPixel(mydc, x,y, RGB(0, 255, 0));
-    }
-
 }
 
 // ----------------------------------------------------------------
