@@ -29,19 +29,25 @@ void Painter::draw_points( vector<Point> points, vector<Center> centers, int mar
     RECT rect;
     GetClientRect(myconsole, &rect);
 
-    for(int i = 0; i < (int) points.size(); i++)
-    {
-        int x = 10*points[i].return_x() +150+margin;
-        int y = 10*points[i].return_y() +150+margin;
-        SetPixel(mydc, x,y, RGB(red/2, green/2, blue/2));
-    }
+
 
 
     for(int i = 0; i < (int) centers.size(); i++)
     {
+        int colorStep = 255/(centers.size()-1);
+
         int x = 10*centers[i].return_x() +150+margin;
         int y = 10*centers[i].return_y() +150+margin;
-        SetPixel(mydc, x,y, RGB(red, green, blue));
+        SetPixel(mydc, x,y, RGB(255-colorStep*i, colorStep*i, 0));
+
+        vector<Point> belongingPoints = centers[i].return_belonging_points(points) ;
+
+        for(int j = 0; j < (int) belongingPoints.size(); j++)
+        {
+            int xx = 10*belongingPoints[j].return_x() +150+margin;
+            int yy = 10*belongingPoints[j].return_y() +150+margin;
+            SetPixel(mydc, xx,yy, RGB(255/3-colorStep*i/3, colorStep*i/3, 0));
+        }
     }
 
 }
