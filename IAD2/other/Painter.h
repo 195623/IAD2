@@ -12,5 +12,10 @@ public:
     Painter() ;
 
     void draw() ;
-    void draw_points( std::vector<Point> points, std::vector<Center> centers = std::vector<Center>(), int margin = 0 ) ;
+    void draw_points( std::vector<Point> points,
+                      std::vector<Center> centers = std::vector<Center>(),
+                      int margin = 0,
+                      int red = 255,
+                      int green = 255,
+                      int blue = 255 ) ;
 };

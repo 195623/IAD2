@@ -21,7 +21,7 @@ void Painter::draw()
         SetPixel(mydc, i, (rect.bottom - rect.top) / 2, RGB(255, 0, 0));
 }
 
-void Painter::draw_points( vector<Point> points, vector<Center> centers, int margin )
+void Painter::draw_points( vector<Point> points, vector<Center> centers, int margin, int red, int green, int blue )
 {
     //SetPixel(NULL, 50, 50, RGB(255, 255, 255));
     HWND myconsole = GetConsoleWindow();
@@ -29,19 +29,19 @@ void Painter::draw_points( vector<Point> points, vector<Center> centers, int mar
     RECT rect;
     GetClientRect(myconsole, &rect);
 
-    for(int i = 0; i < points.size(); i++)
+    for(int i = 0; i < (int) points.size(); i++)
     {
         int x = 10*points[i].return_x() +150+margin;
         int y = 10*points[i].return_y() +150+margin;
-        SetPixel(mydc, x,y, RGB(255, 255, 255));
+        SetPixel(mydc, x,y, RGB(red/2, green/2, blue/2));
     }
 
 
-    for(int i = 0; i < centers.size(); i++)
+    for(int i = 0; i < (int) centers.size(); i++)
     {
         int x = 10*centers[i].return_x() +150+margin;
         int y = 10*centers[i].return_y() +150+margin;
-        SetPixel(mydc, x,y, RGB(0, 255, 0));
+        SetPixel(mydc, x,y, RGB(red, green, blue));
     }
 
 }

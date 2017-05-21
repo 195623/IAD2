@@ -19,7 +19,7 @@ void Reader::write_thing_into_csv( string fileName, vector<string> thing )
       myfile.open(fileNameC);
       if( myfile.is_open() )
       {
-          for( int i = 0 ; i<thing.size() ; i++ )
+          for( int i = 0 ; i< (int) thing.size() ; i++ )
           {
               myfile << thing[i] ;
           }
@@ -121,7 +121,7 @@ Point Reader::Parse_Line( string textLine )
 }
 
 
-void Reader::Create_Pairs( string fileName, vector<Point>* p_points )
+void Reader::Create_Points( string fileName, vector<Point>* p_points )
 {
         vector<string> lines = Read(fileName) ;
         *p_points = Parse_All_Lines(lines) ;

@@ -14,7 +14,7 @@ public:
 
     std::vector<Point> Parse_All_Lines( std::vector<std::string> lines ) ;
 
-    void Create_Pairs( std::string fileName,
+    void Create_Points( std::string fileName,
                        std::vector<Point>* p_points );
 
     void write_to_csv( std::string fileName ) ;

@@ -13,9 +13,31 @@ int Center::return_ID()
     return this->ID ;
 }
 
+int Center::return_nowBelonging()
+{
+    return this->nowBelonging ;
+}
+
+int Center::return_prevBelonging()
+{
+    return this->prevBelonging ;
+}
+
+void Center::update_numbersOfBelongings( vector<Point> allPoints )
+{
+    vector<Point> belongingPoints = this->return_belonging_points(allPoints) ;
+
+    this->prevBelonging = nowBelonging ;
+    this->nowBelonging = belongingPoints.size();
+}
+
+bool Center::belonging_points_not_changed()
+{
+    return (prevBelonging==nowBelonging) ;
+}
+
 void Center::reposition_center( vector<Point> allPoints )
 {
-
     vector<Point> belongingPoints = return_belonging_points(allPoints) ;
 
     double xs = 0, ys = 0 ;
@@ -40,6 +62,7 @@ void Center::reposition_center( vector<Point> allPoints )
         //cout << display_point();
     }
 
+    //update_belonging( allPoints ) ;
 
 }
 

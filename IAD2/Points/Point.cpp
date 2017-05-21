@@ -18,11 +18,11 @@ bool Point::did_not_change()
 {
     if( currentCenterID == previousCenterID )
     {
-        //cout << '*' ;
+        //cout << currentCenterID ;
         return true ;
     }
 
-    //cout << "^" ;
+    //cout << currentCenterID ;
     return false ;
 }
 
