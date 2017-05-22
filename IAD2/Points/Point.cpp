@@ -31,7 +31,7 @@ string Point::display_point()
     string strX = dts(x) ;
     string strY = dts(y) ;
 
-    return "(" + strX + "," + strY + ")  " ;
+    return "(" + strX + "," + strY + ")" ;
 }
 
 void Point::set_currentCenterID( int newCenterID )
