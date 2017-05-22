@@ -20,34 +20,18 @@ int main()
 
         vector<string> csvOutput = dotGroup.iterate();
         reader.write_thing_into_csv("test.csv",csvOutput);
+
+        cout << csvOutput.size() << " iterations done.\n\n" ;
+        dotGroup.display_centers();
     }
 
-    cout << "finished" ;
+    cout << "\nFinished." ;
+    cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" ;
     cin.get();
 
     return 0 ;
 }
 
 // ----------------------------------------------------------------
-
-
-
-
-// ----------------------------------------------------------------
-
-
-
-void show_points( vector<Point> points)
-{
-    for( int i = 0 ; i< (int) points.size() ; i++ )
-    {
-        int x = points[i].return_x() ;
-        int y = points[i].return_y() ;
-
-        cout << "(" << x << "," << y << ")\n" ;
-    }
-}
-
-
 
 
