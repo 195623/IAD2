@@ -14,8 +14,7 @@ public:
     void draw() ;
     void draw_points( std::vector<Point> points,
                       std::vector<Center> centers = std::vector<Center>(),
-                      int margin = 0,
-                      int red = 255,
-                      int green = 255,
-                      int blue = 255 ) ;
+                      int xmar = 0,
+                      int ymar = 0,
+                      bool colors = false ) ;
 };
