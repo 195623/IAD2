@@ -5,14 +5,16 @@ using namespace std ;
 extern bool displayTextNotPixels ;
 extern bool getchUsed ;
 
-DotGroup::DotGroup( string fileName, int centers )
+DotGroup::DotGroup( string fileName, int nOfCenters, int nOfPoints )
 {
     srand (time(NULL));
 
     Reader reader = Reader() ;
 
-    reader.Create_Points(fileName,&this->points) ;
-    this->centers = randomize_centers(centers);
+    if(fileName!="") reader.Create_Points(fileName,&this->points) ;
+    else this->points = randomize_points(nOfPoints) ;
+
+    this->centers = randomize_centers(nOfCenters);
 
 
 }
@@ -29,6 +31,37 @@ std::vector<Center> DotGroup::return_centers()
 }
 
 
+void DotGroup::display_sum_of_distances()
+{
+    Measure measure = Measure() ;
+    cout << "\nSum of distances: " << measure.all_totalDistances(centers,points) << '\n' ;
+}
+
+
+
+void DotGroup::display_all_distances()
+{
+    Measure measure = Measure() ;
+
+    for( int i = 0 ; i<centers.size() ; i++ )
+    {
+        cout << "\nCenter " << centers[i].display_point() << ": distance sum = " << measure.total_Distance(centers[i],points) ;
+    }
+}
+
+
+void DotGroup::display_all_variances()
+{
+    Measure measure = Measure() ;
+
+    for( int i = 0 ; i<centers.size() ; i++ )
+    {
+        cout << "\nCenter " << centers[i].display_point() << ": variance sum = " << measure.variance(centers[i],points) ;
+    }
+}
+
+
+
 vector<Center> DotGroup::randomize_centers( int number )
 {
     vector<Center> centers ;
@@ -37,9 +70,9 @@ vector<Center> DotGroup::randomize_centers( int number )
 
     for( int i = 0 ; i<number ; i++ )
     {
-        double x = (double) (rand()%30-15) ;
+        double x = (double) (rand()%600-300)/20 ;
 
-        double y = (double) (rand()%30-15) ;
+        double y = (double) (rand()%600-300)/20 ;
 
 
         centers.push_back(Center(x,y,i)) ;
@@ -55,6 +88,32 @@ vector<Center> DotGroup::randomize_centers( int number )
   //int i = rand() % 10 + 1;
 }
 
+
+vector<Point> DotGroup::randomize_points( int number )
+{
+    vector<Point> points ;
+
+    //if(displayTextNotPixels) cout << "Centers created:\n\n" ;
+
+    for( int i = 0 ; i<number ; i++ )
+    {
+        double x = (double) (rand()%600-300)/20 ;
+
+        double y = (double) (rand()%600-300)/20 ;
+
+
+        points.push_back(Point(x,y)) ;
+
+        //if(displayTextNotPixels) cout << "(" << x << "," << y << ")\n" ;
+    }
+
+    //if(displayTextNotPixels) cout << "\n----------\n" ;
+
+    return points ;
+
+  /* generate secret number between 1 and 10: */
+  //int i = rand() % 10 + 1;
+}
 
 
 
@@ -93,13 +152,13 @@ vector<string> DotGroup::iterate()
         {
             centers[i].update_numbersOfBelongings(points); // is always 1 step behind; shows previous state of belongings
             centers[i].reposition_center(points) ;
-            //allCentersDistance += measure.total_sqDistance(centers[i],points) ;
+            //allCentersDistance += measure.total_Distance(centers[i],points) ;
         }
 
         //cout << "Total distance = " << allCentersDistance << '\n' ;
 
         //vector<Point> cpoints = centers[1].return_belonging_points(points) ;
-        //cout << "\n - dist[1] = " << measure.total_sqDistance(centers[1],cpoints);
+        //cout << "\n - dist[1] = " << measure.total_Distance(centers[1],cpoints);
         //cout << "\n\n" ;
 
         string countLine = "" ;
@@ -107,7 +166,7 @@ vector<string> DotGroup::iterate()
         string line = "" ;
         for( int c = 0 ; c< (int) centers.size() ; c++ )
         {
-            line += dts(measure.total_sqDistance(centers[c],centers[c].return_belonging_points(points))) ;
+            line += dts(measure.total_Distance(centers[c],centers[c].return_belonging_points(points))) ;
             line += " ; " ;
 
             vector<Point> belongingPoints = centers[c].return_belonging_points(points) ;
@@ -199,31 +258,4 @@ void DotGroup::display_centers()
 
 
 
-double DotGroup::variance( Center center )
-{
-    Measure measure = Measure() ;
 
-    double sum = 0, avg=0, var = 0 ;
-
-    vector<Point> assignedPoints = center.return_belonging_points(points);
-
-    double n = assignedPoints.size();
-
-    for( int i = 0 ; i<n ; i++ )
-    {
-        sum += measure.single_sqDistance(center,assignedPoints[i]);
-    }
-
-    avg = sum/n ;
-
-    for( int i = 0 ; i<n ; i++ )
-    {
-        double thisDistance = measure.single_sqDistance(center,assignedPoints[i]) ;
-
-        var += (avg-thisDistance)*(avg-thisDistance) ;
-    }
-
-    var = var/n ;
-
-    return var ;
-}
