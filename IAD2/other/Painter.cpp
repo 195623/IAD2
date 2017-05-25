@@ -36,18 +36,20 @@ void Painter::draw_points( vector<Point> points, vector<Center> centers, int mar
     {
         int colorStep = 255/(centers.size()-1);
 
-        int x = 10*centers[i].return_x() +150+margin;
-        int y = 10*centers[i].return_y() +150+margin;
-        SetPixel(mydc, x,y, RGB(255-colorStep*i, colorStep*i, 0));
-
         vector<Point> belongingPoints = centers[i].return_belonging_points(points) ;
 
         for(int j = 0; j < (int) belongingPoints.size(); j++)
         {
-            int xx = 10*belongingPoints[j].return_x() +150+margin;
-            int yy = 10*belongingPoints[j].return_y() +150+margin;
+            int xx = 10*belongingPoints[j].return_x() +500+margin;
+            int yy = 10*belongingPoints[j].return_y() +300+margin;
             SetPixel(mydc, xx,yy, RGB(255/3-colorStep*i/3, colorStep*i/3, 0));
         }
+
+        int x = 10*centers[i].return_x() +500+margin;
+        int y = 10*centers[i].return_y() +300+margin;
+        SetPixel(mydc, x,y, RGB(255-colorStep*i, colorStep*i, 0));
+
+
     }
 
 }
