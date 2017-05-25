@@ -11,8 +11,10 @@ class Measure
 public:
     Measure() ;
 
-    double single_sqDistance( Center center, Point point ) ;
-    double  total_sqDistance( Center center, std::vector<Point> points ) ;
+    double single_Distance( Center center, Point point ) ;
+    double  total_Distance( Center center, std::vector<Point> points ) ;
+    double  all_totalDistances( std::vector<Center> centers, std::vector<Point> points ) ;
+    double variance( Center center, std::vector<Point> points ) ;
 
     void set_closest_center( Point* p_point, std::vector<Center> centers ) ;
 };
