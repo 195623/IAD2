@@ -18,7 +18,7 @@ public:
 
     std::vector<Center> randomize_centers( int number ) ;
     std::vector<Point>  randomize_points ( int number ) ;
-    std::vector<std::string> iterate() ;
+    std::vector<std::string> iterate(int xmar, int ymar) ;
     bool no_point_changed( std::vector<Point> points ) ;
     bool belongings_quantities_are_unchanged( std::vector<Center> centers ) ;
 

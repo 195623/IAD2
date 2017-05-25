@@ -118,7 +118,7 @@ vector<Point> DotGroup::randomize_points( int number )
 
 
 
-vector<string> DotGroup::iterate()
+vector<string> DotGroup::iterate(int xmar, int ymar)
 {
     Painter painter = Painter() ;
     Measure measure = Measure();
@@ -166,11 +166,11 @@ vector<string> DotGroup::iterate()
         string line = "" ;
         for( int c = 0 ; c< (int) centers.size() ; c++ )
         {
-            line += dts(measure.total_Distance(centers[c],centers[c].return_belonging_points(points))) ;
+            line += dts(measure.total_Distance(centers[c],points)) ;
             line += " ; " ;
 
             vector<Point> belongingPoints = centers[c].return_belonging_points(points) ;
-            countLine += dts((double) belongingPoints.size() ) + "   " ;
+            //countLine += dts((double) belongingPoints.size() ) + "   " ;
 
             //painter.draw_points(belongingPoints,cent)
         }
@@ -186,7 +186,7 @@ vector<string> DotGroup::iterate()
         if( displayTextNotPixels ) cout << countLine << '\n' ;
         else
         {
-            painter.draw_points(points,centers,100) ; // temporary unseperated into center-groups
+            painter.draw_points(points,centers,xmar,ymar) ; // temporary unseperated into center-groups
 
 
             if( getchUsed )
