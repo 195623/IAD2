@@ -4,8 +4,8 @@ using namespace std ;
 bool displayTextNotPixels = false ;
 bool getchUsed = false ;
 
-bool globalColor = true ;
-bool bigPixels = true ;
+bool globalColor = false ;
+bool bigPixels = false ;
 
 
 
@@ -17,20 +17,24 @@ int main()
     srand (time(NULL));
 
     int numberOfCenters = 1 ;
+    bool forgy = false ;
 
     cout << "How many centers? " ;
     cin >> numberOfCenters ;
+    cout << "Forgy? (1/0) " ;
+    cin >> forgy ;
+
     system("CLS");
 
     if( numberOfCenters >=1 )
     {
-        DotGroup dotGroup = DotGroup("test_data.txt",numberOfCenters) ;
+        DotGroup dotGroup = DotGroup("test_data.txt",forgy, numberOfCenters) ;
         //DotGroup dotGroup = DotGroup("",numberOfCenters,20) ;
         Reader reader = Reader();
 
         dotGroup.display_centers();
 
-        vector<string> csvOutput = dotGroup.iterate(300,200);
+        vector<string> csvOutput = dotGroup.iterate(300,250);
 
         reader.write_thing_into_csv("test.csv",csvOutput);
         cout << "\n\n                " << csvOutput.size() << " iterations done.\n" ;
@@ -43,7 +47,7 @@ int main()
 
     cout << "\n\n\n\nFinished." ;
 
-cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n" ;
+cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" ;
     cin.get();
 
     return 0 ;
