@@ -20,11 +20,13 @@ double Measure::single_Distance( Center center, Point point )
 
 }
 
-double Measure::total_Distance( Center center, vector<Point> points )
+double Measure::total_Distance( Center center, vector<Point> points, bool forAllPoints  )
 {
     double totalDistance = 0 ;
 
-    vector<Point> assignedPoints = center.return_belonging_points(points) ;
+    vector<Point> assignedPoints ;
+    if(!forAllPoints) assignedPoints = center.return_belonging_points(points) ;
+    else assignedPoints = points ;
 
     if(assignedPoints.size() == 0 ) return -1 ;
 
@@ -80,13 +82,16 @@ void Measure::set_closest_center( Point* p_point, vector<Center> centers )
 }
 
 
-double Measure::variance( Center center, vector<Point> points )
+double Measure::variance( Center center, vector<Point> points, bool forAllPoints )
 {
     //Measure measure = Measure() ;
 
     double sum = 0, avg=0, var = 0 ;
 
-    vector<Point> assignedPoints = center.return_belonging_points(points);
+    vector<Point> assignedPoints ;
+
+        if(!forAllPoints) assignedPoints = center.return_belonging_points(points);
+        else assignedPoints = points ;
 
     double n = assignedPoints.size();
 
