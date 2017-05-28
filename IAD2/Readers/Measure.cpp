@@ -35,7 +35,7 @@ double Measure::total_Distance( Center center, vector<Point> points, bool forAll
         totalDistance += single_Distance(center,*it) ;
     }
 
-    return totalDistance/10000 ;
+    return totalDistance/assignedPoints.size() ;
 }
 
 double Measure::all_totalDistances( vector<Center> centers, vector<Point> points )
