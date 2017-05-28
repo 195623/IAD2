@@ -26,10 +26,32 @@ bool Point::did_not_change()
     return false ;
 }
 
+bool has_comma( string text )
+{
+    int n = text.length() ;
+    for( int i = 0 ; i<n ; i++ )
+    {
+        if( text[i] == '.' ) return true ;
+    }
+
+    return false ;
+}
+
 string Point::display_point()
 {
     string strX = dts(x) ;
+           if( has_comma(strX) ) strX += "0000" ;
+           else strX += ".0000" ;
+
+           if( strX[0] == '-' ) strX = strX.substr(0,6) ;
+           else strX = strX.substr(0,5) ;
+
     string strY = dts(y) ;
+           if( has_comma(strY) ) strY += "0000" ;
+           else strY += ".0000" ;
+
+           if( strY[0] == '-' ) strY = strY.substr(0,6) ;
+           else strY = strY.substr(0,5) ;
 
     return "(" + strX + "," + strY + ")" ;
 }
