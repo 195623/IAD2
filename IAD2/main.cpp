@@ -4,7 +4,7 @@ using namespace std ;
 bool displayTextNotPixels = false ;
 bool getchUsed = false ;
 
-bool globalColor = false ;
+bool globalColor = true ;
 bool bigPixels = false ;
 
 
@@ -23,6 +23,8 @@ int main()
     cin >> numberOfCenters ;
     cout << "Forgy? (1/0) " ;
     cin >> forgy ;
+    cout << "Colors? (1/0) " ;
+    cin >> globalColor ;
 
     system("CLS");
 
