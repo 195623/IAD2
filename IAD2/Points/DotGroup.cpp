@@ -5,16 +5,17 @@ using namespace std ;
 extern bool displayTextNotPixels ;
 extern bool getchUsed ;
 
-DotGroup::DotGroup( string fileName, int nOfCenters, int nOfPoints )
+DotGroup::DotGroup( string fileName, bool forgy, int nOfCenters, int nOfPoints )
 {
     srand (time(NULL));
 
     Reader reader = Reader() ;
 
     if(fileName!="") reader.Create_Points(fileName,&this->points) ;
-    else this->points = randomize_points(nOfPoints) ;
+    else randomize_points(nOfPoints) ;
 
-    this->centers = randomize_centers(nOfCenters);
+    if(!forgy) randomize_centers(nOfCenters);
+    else forgy_centers(nOfCenters) ;
 
 
 }
@@ -62,9 +63,9 @@ void DotGroup::display_all_variances()
 
 
 
-vector<Center> DotGroup::randomize_centers( int number )
+void DotGroup::randomize_centers( int number )
 {
-    vector<Center> centers ;
+    //vector<Center> centers ;
 
     if(displayTextNotPixels) cout << "Centers created:\n\n" ;
 
@@ -75,23 +76,23 @@ vector<Center> DotGroup::randomize_centers( int number )
         double y = (double) (rand()%600-300)/20 ;
 
 
-        centers.push_back(Center(x,y,i)) ;
+        this->centers.push_back(Center(x,y,i)) ;
 
         if(displayTextNotPixels) cout << "(" << x << "," << y << ")\n" ;
     }
 
     if(displayTextNotPixels) cout << "\n----------\n" ;
 
-    return centers ;
+    //return centers ;
 
   /* generate secret number between 1 and 10: */
   //int i = rand() % 10 + 1;
 }
 
 
-vector<Point> DotGroup::randomize_points( int number )
+void DotGroup::randomize_points( int number )
 {
-    vector<Point> points ;
+    //vector<Point> points ;
 
     //if(displayTextNotPixels) cout << "Centers created:\n\n" ;
 
@@ -102,17 +103,32 @@ vector<Point> DotGroup::randomize_points( int number )
         double y = (double) (rand()%600-300)/20 ;
 
 
-        points.push_back(Point(x,y)) ;
+        this->points.push_back(Point(x,y)) ;
 
         //if(displayTextNotPixels) cout << "(" << x << "," << y << ")\n" ;
     }
 
     //if(displayTextNotPixels) cout << "\n----------\n" ;
 
-    return points ;
+    //return points ;
 
   /* generate secret number between 1 and 10: */
   //int i = rand() % 10 + 1;
+}
+
+void DotGroup::forgy_centers( int numberOfCenters )
+{
+    int n = points.size() ;
+
+    for( int i = 0 ; i<numberOfCenters ; i++ )
+    {
+        int k = rand()%n ;
+
+        double x = points[k].return_x() ;
+        double y = points[k].return_y() ;
+
+        this->centers.push_back(Center(x,y,i)) ;
+    }
 }
 
 
@@ -126,6 +142,22 @@ vector<string> DotGroup::iterate(int xmar, int ymar)
     string header = "" ;
 
 
+
+    for( int c = 0 ; c< (int) centers.size() ; c++ )
+    {
+        header += "C["+dts(c+1) ;
+        header += "];" ;
+    }
+
+    header += ";;" ;
+
+    for( int c = 0 ; c< (int) centers.size() ; c++ )
+    {
+        header += "C["+dts(c+1) ;
+        header += "];" ;
+    }
+
+    header += ";;" ;
 
     for( int c = 0 ; c< (int) centers.size() ; c++ )
     {
@@ -173,6 +205,14 @@ vector<string> DotGroup::iterate(int xmar, int ymar)
             //countLine += dts((double) belongingPoints.size() ) + "   " ;
 
             //painter.draw_points(belongingPoints,cent)
+        }
+
+        line += ";;" ;
+
+        for( int c = 0 ; c< (int) centers.size() ; c++ )
+        {
+            line += dts(measure.variance(centers[c],points)) ;
+            line += ";" ;
         }
 
         line += ";;" ;
