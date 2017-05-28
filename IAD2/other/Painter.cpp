@@ -37,11 +37,11 @@ void Painter::draw_points( vector<Point> points, vector<Center> centers, int xma
     if( n == 1 ) n = 2 ;
     int colorStep = 255/(n-1);
 
-    int multi = 1 ;
-    if( n < 32 ) multi = 2 ;
-    if( n < 16 ) multi = 4 ;
-    if( n < 8  ) multi = 8 ;
-    if( n < 4  ) multi = 16 ;
+    //int multi = 1 ;
+    //if( n < 32 ) multi = 2 ;
+    //if( n < 16 ) multi = 4 ;
+    //if( n < 8  ) multi = 8 ;
+    //if( n < 4  ) multi = 16 ;
 
     for(int i = 0; i < (int) centers.size(); i++)
     {
