@@ -14,7 +14,7 @@ public:
     int return_nowBelonging() ;
     int return_prevBelonging() ;
 
-    void update_numbersOfBelongings( std::vector<Point> allPoints ) ;
+    void update_assigned_quantities( std::vector<Point> allPoints ) ;
     bool belonging_points_not_changed() ;
 
 private:

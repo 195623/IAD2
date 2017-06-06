@@ -14,7 +14,7 @@ DotGroup::DotGroup( string fileName, bool forgy, int nOfCenters, int nOfPoints )
     if(fileName!="") reader.Create_Points(fileName,&this->points) ;
     else randomize_points(nOfPoints) ;
 
-    if(!forgy) randomize_centers(nOfCenters);
+    if(!forgy) random_partition(nOfCenters);
     else forgy_centers(nOfCenters) ;
 
 
@@ -51,19 +51,23 @@ void DotGroup::display_all_distances()
 }
 
 
-void DotGroup::display_all_variances()
+void DotGroup::display_all_std_deviations()
 {
     Measure measure = Measure() ;
 
     for( int i = 0 ; i<centers.size() ; i++ )
     {
-        cout << "\nCenter " << centers[i].display_point() << ": variance sum = " << measure.variance(centers[i],points) ;
+        cout << "\nCenter " << centers[i].display_point() << ": std_deviation sum = " << measure.std_deviation(centers[i],points) ;
     }
 }
 
 
 
-void DotGroup::randomize_centers( int number )
+
+
+
+
+void DotGroup::random_partition( int number )
 {
     //vector<Center> centers ;
 
@@ -80,6 +84,13 @@ void DotGroup::randomize_centers( int number )
 
         if(displayTextNotPixels) cout << "(" << x << "," << y << ")\n" ;
     }
+
+    for( int i = 0 ; i<points.size();i++)
+    {
+            int r = rand()%number ;
+            points[i].set_currentCenterID(r);
+    }
+
 
     if(displayTextNotPixels) cout << "\n----------\n" ;
 
@@ -138,40 +149,16 @@ vector<string> DotGroup::iterate(int xmar, int ymar)
 {
     Painter painter = Painter() ;
     Measure measure = Measure();
+
     vector<string> outputLines ;
-    string header = "" ;
-
-
-
-    for( int c = 0 ; c< (int) centers.size() ; c++ )
-    {
-        header += "C["+dts(c+1) ;
-        header += "];" ;
-    }
-
-    header += ";;" ;
-
-    for( int c = 0 ; c< (int) centers.size() ; c++ )
-    {
-        header += "C["+dts(c+1) ;
-        header += "];" ;
-    }
-
-    header += ";;" ;
-
-    for( int c = 0 ; c< (int) centers.size() ; c++ )
-    {
-        header += "C["+dts(c+1) ;
-        header += "];" ;
-    }
-    header += '\n' ;
-
+    string header = output_column_headers(centers.size());
     outputLines.push_back(header);
 
     int k = 0 ;
 
-    for(int j = 0 ; !belongings_quantities_are_unchanged(centers) ; j++)
-    //for(int j = 0 ; !no_point_changed(points) ; j++)
+    //for(int j=0;j<1;j++)
+    for(int j = 0 ; !assigned_quantities_are_unchanged( centers ) ; j++)
+    //for(int j = 0 ; !no_point_changed() ; j++)
     {
         for( int i = 0 ; i< (int) points.size() ; i++ )
         {
@@ -182,16 +169,10 @@ vector<string> DotGroup::iterate(int xmar, int ymar)
 
         for( int i = 0 ; i< (int) centers.size() ; i++ )
         {
-            centers[i].update_numbersOfBelongings(points); // is always 1 step behind; shows previous state of belongings
+            centers[i].update_assigned_quantities(points); // is always 1 step behind; shows previous state of belongings
             centers[i].reposition_center(points) ;
             //allCentersDistance += measure.total_Distance(centers[i],points) ;
         }
-
-        //cout << "Total distance = " << allCentersDistance << '\n' ;
-
-        //vector<Point> cpoints = centers[1].return_belonging_points(points) ;
-        //cout << "\n - dist[1] = " << measure.total_Distance(centers[1],cpoints);
-        //cout << "\n\n" ;
 
         string countLine = "" ;
 
@@ -202,16 +183,13 @@ vector<string> DotGroup::iterate(int xmar, int ymar)
             line += " ; " ;
 
             vector<Point> belongingPoints = centers[c].return_belonging_points(points) ;
-            //countLine += dts((double) belongingPoints.size() ) + "   " ;
-
-            //painter.draw_points(belongingPoints,cent)
         }
 
         line += ";;" ;
 
         for( int c = 0 ; c< (int) centers.size() ; c++ )
         {
-            line += dts(measure.variance(centers[c],points)) ;
+            line += dts(measure.std_deviation(centers[c],points)) ;
             line += ";" ;
         }
 
@@ -226,9 +204,6 @@ vector<string> DotGroup::iterate(int xmar, int ymar)
         if( displayTextNotPixels ) cout << countLine << '\n' ;
         else
         {
-            painter.draw_points(points,centers,xmar,ymar) ; // temporary unseperated into center-groups
-
-
             if( getchUsed )
             {
                 do
@@ -239,6 +214,11 @@ vector<string> DotGroup::iterate(int xmar, int ymar)
 
                 k=0 ;
             }
+
+            painter.draw_points(points,centers,xmar,ymar) ; // temporary unseperated into center-groups
+
+
+
 
 
         }
@@ -257,7 +237,7 @@ vector<string> DotGroup::iterate(int xmar, int ymar)
 
 
 
-bool DotGroup::no_point_changed( vector<Point> points )
+bool DotGroup::no_point_changed( )
 {
     int n = points.size() ;
     int notChanged = 0 ;
@@ -273,7 +253,7 @@ bool DotGroup::no_point_changed( vector<Point> points )
 }
 
 
-bool DotGroup::belongings_quantities_are_unchanged( vector<Center> centers )
+bool DotGroup::assigned_quantities_are_unchanged( vector<Center> centers )
 {
     int n = centers.size() ;
     int notChanged = 0 ;
@@ -296,6 +276,31 @@ void DotGroup::display_centers()
     }
 }
 
+/*
+void DotGroup::randomize_centers( int number )
+{
+    //vector<Center> centers ;
+
+    if(displayTextNotPixels) cout << "Centers created:\n\n" ;
+
+    for( int i = 0 ; i<number ; i++ )
+    {
+        double x = (double) (rand()%600-300)/20 ;
+
+        double y = (double) (rand()%600-300)/20 ;
 
 
+        this->centers.push_back(Center(x,y,i)) ;
+
+        if(displayTextNotPixels) cout << "(" << x << "," << y << ")\n" ;
+    }
+
+    if(displayTextNotPixels) cout << "\n----------\n" ;
+
+    //return centers ;
+
+   generate secret number between 1 and 10:
+  //int i = rand() % 10 + 1;
+}
+*/
 

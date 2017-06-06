@@ -14,4 +14,4 @@
 #include "other/Painter.h"
 #include "Points/DotGroup.h"
 
-
+std::string output_column_headers( int numberOfColumns );

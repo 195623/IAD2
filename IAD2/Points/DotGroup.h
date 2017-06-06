@@ -13,19 +13,20 @@ public:
     void display_centers() ;
     void display_sum_of_distances() ;
     void display_all_distances() ;
-    void display_all_variances() ;
+    void display_all_std_deviations() ;
 
 
-    void randomize_centers( int number ) ;
-    void forgy_centers(int numberOfCenters) ;
-    //void forgy_centers( std::vector<Point> points, int numberOfCenters ) ;
     void randomize_points ( int number ) ;
+
+    void forgy_centers(int numberOfCenters) ;
+    void random_partition( int number ) ;
+
     std::vector<std::string> iterate(int xmar, int ymar) ;
-    bool no_point_changed( std::vector<Point> points ) ;
-    bool belongings_quantities_are_unchanged( std::vector<Center> centers ) ;
+    bool no_point_changed( ) ;
+    bool assigned_quantities_are_unchanged( std::vector<Center> centers ) ;
 
 
-
+    //void randomize_centers( int number ) ;
 private:
     std::vector<Point> points ;
     std::vector<Center> centers ;

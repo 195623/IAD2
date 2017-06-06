@@ -44,7 +44,7 @@ int main()
         //dotGroup.display_centers();
         //dotGroup.display_sum_of_distances();
         //dotGroup.display_all_distances()
-        //dotGroup.display_all_variances() ;
+        //dotGroup.display_all_std_deviations() ;
     }
 
     cout << "\n\n\n\nFinished." ;

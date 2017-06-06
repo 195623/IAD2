@@ -33,6 +33,8 @@
 		</Compiler>
 		<Unit filename="Points/Center.cpp" />
 		<Unit filename="Points/Center.h" />
+		<Unit filename="Points/DotGroup.cpp" />
+		<Unit filename="Points/DotGroup.h" />
 		<Unit filename="Points/Point.cpp" />
 		<Unit filename="Points/Point.h" />
 		<Unit filename="Readers/Measure.cpp" />
@@ -41,6 +43,9 @@
 		<Unit filename="Readers/Reader.h" />
 		<Unit filename="headers.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="other/Painter.cpp" />
+		<Unit filename="other/Painter.h" />
+		<Unit filename="other/single_functions.cpp" />
 		<Unit filename="todo.h" />
 		<Extensions>
 			<code_completion />

@@ -23,7 +23,7 @@ int Center::return_prevBelonging()
     return this->prevBelonging ;
 }
 
-void Center::update_numbersOfBelongings( vector<Point> allPoints )
+void Center::update_assigned_quantities( vector<Point> allPoints )
 {
     vector<Point> belongingPoints = this->return_belonging_points(allPoints) ;
 

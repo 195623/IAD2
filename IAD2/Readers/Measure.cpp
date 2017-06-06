@@ -14,7 +14,7 @@ double Measure::single_Distance( Center center, Point point )
         cx = center.return_x(),
         cy = center.return_y() ;
 
-    double distance = sqrt((px-cx)*(px-cx)+(py-cy)*(py-cy)) ;
+    double distance = ((px-cx)*(px-cx)+(py-cy)*(py-cy)) ;
 
     return distance ;
 
@@ -28,7 +28,7 @@ double Measure::total_Distance( Center center, vector<Point> points, bool forAll
     if(!forAllPoints) assignedPoints = center.return_belonging_points(points) ;
     else assignedPoints = points ;
 
-    if(assignedPoints.size() == 0 ) return -1 ;
+    if(assignedPoints.size() == 0 ) return 0 ;
 
     for( vector<Point>::iterator it = assignedPoints.begin() ;  it != assignedPoints.end() ; it++ )
     {
@@ -82,7 +82,7 @@ void Measure::set_closest_center( Point* p_point, vector<Center> centers )
 }
 
 
-double Measure::variance( Center center, vector<Point> points, bool forAllPoints )
+double Measure::std_deviation( Center center, vector<Point> points, bool forAllPoints )
 {
     //Measure measure = Measure() ;
 
@@ -111,5 +111,5 @@ double Measure::variance( Center center, vector<Point> points, bool forAllPoints
 
     var = var/n ;
 
-    return var ;
+    return sqrt(var) ;
 }
