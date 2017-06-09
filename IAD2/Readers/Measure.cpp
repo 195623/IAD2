@@ -40,25 +40,33 @@ double Measure::total_Distance( Center center, vector<Point> points, bool forAll
 
 double Measure::all_totalDistances( vector<Center> centers, vector<Point> points )
 {
-    double totalDistance = 0 ;
+    double totalDistance = 0, j = 0 ;
 
     for( int i = 0 ; i < (int) centers.size() ; i++ )
     {
         double thisDistance = total_Distance(centers[i],points) ;
-        if( thisDistance>=0 ) totalDistance += thisDistance ;
+        if( thisDistance>=0 )
+        {
+            totalDistance += thisDistance ;
+            j++ ;
+        }
     }
 
-    return totalDistance ;
+    return totalDistance/j ;
 }
 
-void Measure::set_closest_center( Point* p_point, vector<Center> centers )
+void Measure::set_closest_center( Point* p_point, vector<Center> centers, int display )
 {
-    double Distance ;
+    double oldDistance ;
 
-    if(centers.size()>0)
+    if( centers.size()>0 )
     {
-        Distance = single_Distance(centers[0],*p_point) ;
-        p_point->set_currentCenterID(centers[0].return_ID()) ;
+        if(p_point->return_currentCenterID()==-1 )
+        {
+            oldDistance = single_Distance(centers[0],*p_point) ;
+            p_point->set_currentCenterID(centers[0].return_ID()) ;
+        }
+        else oldDistance = single_Distance(centers[p_point->return_currentCenterID()],*p_point) ;
     }
     else
     {
@@ -71,9 +79,13 @@ void Measure::set_closest_center( Point* p_point, vector<Center> centers )
         double newDistance = single_Distance(*it,*p_point) ;
         int newID = (*it).return_ID();
 
-        if( newDistance < Distance )
+        if( newDistance <= oldDistance )
         {
-            Distance = newDistance ;
+            int cent = distance(centers.begin(),it) ;
+            //cout << dist << ' ' ;
+
+            //if(cent==display || display == -13) cout << '\n' << oldDistance << " --> " << newDistance  ;
+            oldDistance = newDistance ;
 
             p_point->set_currentCenterID(newID) ;
             //cout << "New ID = " << newID << '\n' ;
@@ -94,6 +106,8 @@ double Measure::std_deviation( Center center, vector<Point> points, bool forAllP
         else assignedPoints = points ;
 
     double n = assignedPoints.size();
+
+    if ( n==0 ) return 0;
 
     for( int i = 0 ; i<n ; i++ )
     {

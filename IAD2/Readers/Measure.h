@@ -16,5 +16,5 @@ public:
     double  all_totalDistances( std::vector<Center> centers, std::vector<Point> points ) ;
     double std_deviation( Center center, std::vector<Point> points, bool forAllPoints=false );
 
-    void set_closest_center( Point* p_point, std::vector<Center> centers ) ;
+    void set_closest_center( Point* p_point, std::vector<Center> centers, int display = -1 ) ;
 };

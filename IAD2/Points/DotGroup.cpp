@@ -71,18 +71,16 @@ void DotGroup::random_partition( int number )
 {
     //vector<Center> centers ;
 
-    if(displayTextNotPixels) cout << "Centers created:\n\n" ;
+    //if(displayTextNotPixels) cout << "Centers created:\n\n" ;
 
     for( int i = 0 ; i<number ; i++ )
     {
         double x = (double) (rand()%600-300)/20 ;
-
         double y = (double) (rand()%600-300)/20 ;
-
 
         this->centers.push_back(Center(x,y,i)) ;
 
-        if(displayTextNotPixels) cout << "(" << x << "," << y << ")\n" ;
+        //if(displayTextNotPixels) cout << "(" << x << "," << y << ")\n" ;
     }
 
     for( int i = 0 ; i<points.size();i++)
@@ -92,7 +90,7 @@ void DotGroup::random_partition( int number )
     }
 
 
-    if(displayTextNotPixels) cout << "\n----------\n" ;
+    //if(displayTextNotPixels) cout << "\n----------\n" ;
 
     //return centers ;
 
@@ -127,6 +125,8 @@ void DotGroup::randomize_points( int number )
   //int i = rand() % 10 + 1;
 }
 
+
+
 void DotGroup::forgy_centers( int numberOfCenters )
 {
     int n = points.size() ;
@@ -157,32 +157,24 @@ vector<string> DotGroup::iterate(int xmar, int ymar)
     int k = 0 ;
 
     //for(int j=0;j<1;j++)
-    for(int j = 0 ; !assigned_quantities_are_unchanged( centers ) ; j++)
-    //for(int j = 0 ; !no_point_changed() ; j++)
+    //for(int j = 0 ; !assigned_quantities_are_unchanged( centers ) ; j++)
+    for(int j = 0 ; !no_point_changed() && j<200  ; j++)
     {
+        string line = "" ;
+
+        int ip = 500, ic = -13 ;
+
         for( int i = 0 ; i< (int) points.size() ; i++ )
         {
-            measure.set_closest_center(&points[i],centers);
+            int display = -1 ;
+            //if(i==ip) display = ic ;
+            measure.set_closest_center(&points[i],centers,display);
         }
 
-        //double allCentersDistance = 0 ;
-
-        for( int i = 0 ; i< (int) centers.size() ; i++ )
-        {
-            centers[i].update_assigned_quantities(points); // is always 1 step behind; shows previous state of belongings
-            centers[i].reposition_center(points) ;
-            //allCentersDistance += measure.total_Distance(centers[i],points) ;
-        }
-
-        string countLine = "" ;
-
-        string line = "" ;
         for( int c = 0 ; c< (int) centers.size() ; c++ )
         {
             line += dts(measure.total_Distance(centers[c],points)) ;
             line += " ; " ;
-
-            vector<Point> belongingPoints = centers[c].return_belonging_points(points) ;
         }
 
         line += ";;" ;
@@ -193,6 +185,12 @@ vector<string> DotGroup::iterate(int xmar, int ymar)
             line += ";" ;
         }
 
+        for( int i = 0 ; i< (int) centers.size() ; i++ )
+        {
+            centers[i].update_assigned_quantities(points); // is always 1 step behind; shows previous state of belongings
+            centers[i].reposition_center(points) ;
+        }
+
         line += ";;" ;
 
         for( int c = 0 ; c< (int) centers.size() ; c++ )
@@ -201,8 +199,6 @@ vector<string> DotGroup::iterate(int xmar, int ymar)
             line += " ; " ;
         }
 
-        if( displayTextNotPixels ) cout << countLine << '\n' ;
-        else
         {
             if( getchUsed )
             {
@@ -216,11 +212,6 @@ vector<string> DotGroup::iterate(int xmar, int ymar)
             }
 
             painter.draw_points(points,centers,xmar,ymar) ; // temporary unseperated into center-groups
-
-
-
-
-
         }
 
 

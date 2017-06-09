@@ -12,6 +12,8 @@ Point::Point( double x, double y )
 {
     this->x = x ;
     this->y = y ;
+
+    this->currentCenterID = -1 ;
 }
 
 bool Point::did_not_change()
@@ -62,7 +64,8 @@ void Point::set_currentCenterID( int newCenterID )
 
     this->currentCenterID = newCenterID ;
 
-    //if( this->previousCenterID != this->currentCenterID ) cout << "*" ;
+    //if ( this->previousCenterID != this->currentCenterID ) cout << "*" ;
+    //else cout << " " ;
 }
 
 int Point::return_currentCenterID()
