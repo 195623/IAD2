@@ -21,7 +21,7 @@ public:
     void forgy_centers(int numberOfCenters) ;
     void random_partition( int number ) ;
 
-    std::vector<std::string> iterate(int xmar, int ymar) ;
+    std::vector<std::string> iterate(int xmar, int ymar, bool graphics = true) ;
     bool no_point_changed( ) ;
     bool assigned_quantities_are_unchanged( std::vector<Center> centers ) ;
 

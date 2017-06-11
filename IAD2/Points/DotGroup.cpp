@@ -145,7 +145,7 @@ void DotGroup::forgy_centers( int numberOfCenters )
 
 
 
-vector<string> DotGroup::iterate(int xmar, int ymar)
+vector<string> DotGroup::iterate(int xmar, int ymar, bool graphics)
 {
     Painter painter = Painter() ;
     Measure measure = Measure();
@@ -158,7 +158,7 @@ vector<string> DotGroup::iterate(int xmar, int ymar)
 
     //for(int j=0;j<1;j++)
     //for(int j = 0 ; !assigned_quantities_are_unchanged( centers ) ; j++)
-    for(int j = 0 ; !no_point_changed() && j<200  ; j++)
+    for(int j = 0 ; !no_point_changed() ; j++)
     {
         string line = "" ;
 
@@ -211,7 +211,7 @@ vector<string> DotGroup::iterate(int xmar, int ymar)
                 k=0 ;
             }
 
-            painter.draw_points(points,centers,xmar,ymar) ; // temporary unseperated into center-groups
+            if(graphics) painter.draw_points(points,centers,xmar,ymar) ; // temporary unseperated into center-groups
         }
 
 
